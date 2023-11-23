@@ -1,3 +1,3 @@
-import './lib/lib';
+import $ from './lib/lib';
 
-$('div').hide();
+$('button').toggleAttr('even');
