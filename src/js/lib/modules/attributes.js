@@ -27,6 +27,7 @@ $.prototype.getAttr = function (name) {
 		}
 		return this[i].getAttribute(name);
 	}
+	return this;
 };
 
 $.prototype.toggleAttr = function (name, value) {
@@ -39,4 +40,5 @@ $.prototype.toggleAttr = function (name, value) {
 			this[i].setAttribute(name, value);
 		}
 	}
+	return this;
 };
