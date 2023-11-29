@@ -32,7 +32,7 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.dropdown = function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
 
-_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.modal = function () {
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.modal = function (created) {
   for (let i = 0; i < this.length; i++) {
     const target = (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).getAttr('data-target');
     (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).click(e => {
@@ -44,27 +44,88 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.modal = function () {
       });
       document.body.style.overflow = 'hidden';
     });
-  }
-  (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])('[data-close]').click(() => {
-    (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])('.modal').fadeOut(500);
-    document.body.style.overflow = '';
-    document.body.style.paddingRight = '';
-    document.querySelectorAll('.fixed-blocks').forEach(e => {
-      e.style.paddingRight = '';
-    });
-  });
-  (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])('.modal').click(e => {
-    if (e.target.classList.contains('modal')) {
-      (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])('.modal').fadeOut(500);
+    (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])(`${target} [data-close]`).click(() => {
+      (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])(target).fadeOut(500);
       document.body.style.overflow = '';
       document.body.style.paddingRight = '';
       document.querySelectorAll('.fixed-blocks').forEach(e => {
         e.style.paddingRight = '';
       });
-    }
-  });
+      if (created) {
+        setTimeout(() => {
+          document.querySelector(target).remove();
+        }, 501);
+      }
+    });
+    (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])(target).click(e => {
+      if (e.target.classList.contains('modal')) {
+        (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])(target).fadeOut(500);
+        document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
+        document.querySelectorAll('.fixed-blocks').forEach(e => {
+          e.style.paddingRight = '';
+        });
+        if (created) {
+          setTimeout(() => {
+            document.querySelector(target).remove();
+          }, 501);
+        }
+      }
+    });
+  }
 };
 (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])('[data-toggle="modal"]').modal();
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.createModal = function ({
+  text,
+  btns
+} = {}) {
+  for (let i = 0; i < this.length; i++) {
+    let modal = document.createElement('div');
+    modal.classList.add('modal');
+    modal.setAttribute('id', (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).getAttr('data-target').slice(1));
+
+    // btns = {count: num, settings: [[text, classNames={}, close, callback], [...], [...]]}
+    const buttons = [];
+    const {
+      settings
+    } = btns;
+    for (let j = 0; j < btns.count; j++) {
+      let btn = document.createElement('button');
+      btn.classList.add('btn', ...settings[j][1]);
+      btn.textContent = settings[j][0];
+      if (settings[j][2]) {
+        btn.setAttribute('data-close', 'true');
+      }
+      if (btns.settings[j][3] && typeof settings[j][3] === 'function') {
+        btn.addEventListener('click', settings[j][3]);
+      }
+      buttons.push(btn);
+    }
+    modal.innerHTML = `
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<button class="close" data-close>
+					<span>&times;</span>
+				</button>
+				<div class="modal-header">
+					<div class="modal-title">
+						${text.title}
+					</div>
+				</div>
+				<div class="modal-body">
+					${text.body}
+				</div>
+				<div class="modal-footer">
+				</div>
+			</div>
+		</div>
+		`;
+    modal.querySelector(".modal-footer").append(...buttons);
+    document.body.appendChild(modal);
+    (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).modal(true);
+    (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i].getAttribute('data-target')).fadeIn(500);
+  }
+};
 
 /***/ }),
 
@@ -538,6 +599,20 @@ __webpack_require__.r(__webpack_exports__);
 (0,_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('button').eq(2).on('click', () => {
   (0,_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('.w-500').fadeToggle(800);
 });
+(0,_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('#trigger').click(() => (0,_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('#trigger').createModal({
+  text: {
+    title: 'Modal title',
+    body: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate eveniet ad omnis nesciunt accusantium. Velit molestias minus eius temporibus. Magnam unde quia repudiandae vero facere doloribus ipsum a voluptatum minima.'
+  },
+  btns: {
+    count: 3,
+    settings: [['Close', ['btn-danger', 'mr-10'], true], ['Save changes', ['btn-success'], false, () => {
+      alert('Данные сохранены');
+    }], ['Another button', ['btn-warning', 'ml-10'], false, () => {
+      alert('Hello World');
+    }]]
+  }
+}));
 })();
 
 /******/ })()
