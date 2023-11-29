@@ -81,7 +81,7 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.createModal = function (
 } = {}) {
   for (let i = 0; i < this.length; i++) {
     let modal = document.createElement('div');
-    modal.classList.add('modal');
+    modal.classList.add('modal', 'fixed-blocks');
     modal.setAttribute('id', (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).getAttr('data-target').slice(1));
 
     // btns = {count: num, settings: [[text, classNames={}, close, callback], [...], [...]]}

@@ -47,7 +47,7 @@ $('[data-toggle="modal"]').modal();
 $.prototype.createModal = function ({ text, btns } = {}) {
 	for (let i = 0; i < this.length; i++) {
 		let modal = document.createElement('div');
-		modal.classList.add('modal');
+		modal.classList.add('modal', 'fixed-blocks');
 		modal.setAttribute('id', $(this[i]).getAttr('data-target').slice(1));
 
 		// btns = {count: num, settings: [[text, classNames={}, close, callback], [...], [...]]}
