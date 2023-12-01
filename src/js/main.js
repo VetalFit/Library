@@ -60,5 +60,8 @@ $('#carousel2').createCarousel([
 		url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuNf93tx-Kisrjl3xgiitWcI0DBljwAo8LxA&usqp=CAU',
 		alt: 'photo'
 	},
-
 ]);
+
+
+$().get('https://jsonplaceholder.typicode.com/posts/1/comments')
+	.then(res => console.log(res));
