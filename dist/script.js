@@ -28,6 +28,113 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.accordion = function (he
 
 /***/ }),
 
+/***/ "./src/js/lib/components/carousel.js":
+/*!*******************************************!*\
+  !*** ./src/js/lib/components/carousel.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.carousel = function () {
+  for (let i = 0; i < this.length; i++) {
+    const width = window.getComputedStyle(this[i].querySelector('.carousel-inner')).width.slice(0, -2);
+    const slides = this[i].querySelectorAll('.carousel-item');
+    const slidesField = this[i].querySelector('.carousel-slides');
+    const dots = this[i].querySelectorAll('.carousel-indicators li');
+    slidesField.style.width = 100 * slides.length + '%';
+    slides.forEach(slide => {
+      slide.style.width = width;
+    });
+    let offset = 0;
+    let slideIndex = 0;
+    (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i].querySelector('[data-slide="next"]')).click(e => {
+      e.preventDefault();
+      if (offset == +width.replace(/\D/g, '') * (slides.length - 1)) {
+        offset = 0;
+      } else {
+        offset += +width.replace(/\D/g, '');
+      }
+      slidesField.style.transform = `translateX(-${offset}px)`;
+      if (slideIndex == slides.length - 1) {
+        slideIndex = 0;
+      } else {
+        slideIndex++;
+      }
+      dots.forEach(dot => dot.classList.remove('active'));
+      dots[slideIndex].classList.add('active');
+    });
+    (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i].querySelector('[data-slide="prev"]')).click(e => {
+      e.preventDefault();
+      if (offset == 0) {
+        offset = +width.replace(/\D/g, '') * (slides.length - 1);
+      } else {
+        offset -= +width.replace(/\D/g, '');
+      }
+      slidesField.style.transform = `translateX(-${offset}px)`;
+      if (slideIndex == 0) {
+        slideIndex = slides.length - 1;
+      } else {
+        slideIndex--;
+      }
+      dots.forEach(dot => dot.classList.remove('active'));
+      dots[slideIndex].classList.add('active');
+    });
+    const sliderId = this[i].getAttribute('id');
+    (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])(`#${sliderId} .carousel-indicators li`).click(e => {
+      const slideTo = e.target.getAttribute('data-slide-to');
+      slideIndex = slideTo;
+      offset = +width.replace(/\D/g, '') * slideTo;
+      slidesField.style.transform = `translateX(-${offset}px)`;
+      dots.forEach(dot => dot.classList.remove('active'));
+      dots[slideIndex].classList.add('active');
+    });
+  }
+};
+
+//$('.carousel').carousel();
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.createCarousel = function (images = []) {
+  for (let i = 0; i < this.length; i++) {
+    this[i].innerHTML = `
+		<ol class="carousel-indicators">
+		</ol>
+		<div class="carousel-inner">
+			<div class="carousel-slides">
+			</div>
+		</div>
+		<a href="#" class="carousel-prev" data-slide="prev">
+				<span class="carousel-prev-icon">&lt;</span>
+			</a>
+			<a href="#" class="carousel-next" data-slide="next">
+				<span class="carousel-next-icon">&gt;</span>
+			</a>
+		`;
+    const dots = [],
+      slides = [];
+    images.forEach((image, k) => {
+      const dot = document.createElement('li'),
+        img = document.createElement('img'),
+        item = document.createElement('div');
+      item.classList.add('carousel-item');
+      dot.setAttribute('data-slide-to', k);
+      img.setAttribute('src', image.url);
+      img.setAttribute('alt', image.alt);
+      item.append(img);
+      dots.push(dot);
+      slides.push(item);
+    });
+    const carouselIndicators = this[i].querySelector('.carousel-indicators');
+    carouselIndicators.append(...dots);
+    const carouselSlides = this[i].querySelector('.carousel-slides');
+    carouselSlides.append(...slides);
+    (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).carousel();
+  }
+};
+
+/***/ }),
+
 /***/ "./src/js/lib/components/dropdown.js":
 /*!*******************************************!*\
   !*** ./src/js/lib/components/dropdown.js ***!
@@ -229,6 +336,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/modal */ "./src/js/lib/components/modal.js");
 /* harmony import */ var _components_tab__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/tab */ "./src/js/lib/components/tab.js");
 /* harmony import */ var _components_accordion__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/accordion */ "./src/js/lib/components/accordion.js");
+/* harmony import */ var _components_carousel__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/carousel */ "./src/js/lib/components/carousel.js");
+
 
 
 
@@ -663,6 +772,16 @@ __webpack_require__.r(__webpack_exports__);
     }]]
   }
 }));
+(0,_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('#carousel2').createCarousel([{
+  url: 'https://cc-prod.scene7.com/is/image/CCProdAuthor/Photography%20Page%20JDI_marquee_tb?$pjpeg$&jpegSize=200&wid=1199',
+  alt: 'photo'
+}, {
+  url: 'https://images.unsplash.com/photo-1682685797661-9e0c87f59c60?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxzZWFyY2h8MXx8c2t5fGVufDB8fDB8fHwx&w=1000&q=80',
+  alt: 'photo'
+}, {
+  url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuNf93tx-Kisrjl3xgiitWcI0DBljwAo8LxA&usqp=CAU',
+  alt: 'photo'
+}]);
 })();
 
 /******/ })()

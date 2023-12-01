@@ -45,3 +45,20 @@ $('#trigger').click(() => $('#trigger').createModal({
 		]
 	}
 }));
+
+
+$('#carousel2').createCarousel([
+	{
+		url: 'https://cc-prod.scene7.com/is/image/CCProdAuthor/Photography%20Page%20JDI_marquee_tb?$pjpeg$&jpegSize=200&wid=1199',
+		alt: 'photo'
+	},
+	{
+		url: 'https://images.unsplash.com/photo-1682685797661-9e0c87f59c60?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxzZWFyY2h8MXx8c2t5fGVufDB8fDB8fHwx&w=1000&q=80',
+		alt: 'photo'
+	},
+	{
+		url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuNf93tx-Kisrjl3xgiitWcI0DBljwAo8LxA&usqp=CAU',
+		alt: 'photo'
+	},
+
+]);
