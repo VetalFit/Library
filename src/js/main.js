@@ -1,5 +1,10 @@
 import $ from './lib/lib';
 
+
+
+
+
+/*
 $('#first').click(() => {
 	$('div').eq(1).fadeToggle(800);
 });
@@ -7,7 +12,6 @@ $('#first').click(() => {
 $('[data-count="second"]').on('click', () => {
 	$('div').eq(2).fadeToggle(800);
 })
-
 
 $('button').eq(2).on('click', () => {
 	$('.w-500').fadeToggle(800);
@@ -46,7 +50,6 @@ $('#trigger').click(() => $('#trigger').createModal({
 	}
 }));
 
-
 $('#carousel2').createCarousel([
 	{
 		url: 'https://cc-prod.scene7.com/is/image/CCProdAuthor/Photography%20Page%20JDI_marquee_tb?$pjpeg$&jpegSize=200&wid=1199',
@@ -62,6 +65,6 @@ $('#carousel2').createCarousel([
 	},
 ]);
 
-
 $().get('https://jsonplaceholder.typicode.com/posts/1/comments')
 	.then(res => console.log(res));
+	*/
